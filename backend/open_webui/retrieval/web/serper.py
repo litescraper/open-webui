@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import os
 
 from open_webui.retrieval.web.main import SearchResult, get_filtered_results
 from open_webui.utils.json_codec import JSONCodec
@@ -19,7 +20,7 @@ async def search_serper(
 
     Results are sorted by their position field before truncation.
     """
-    url = 'https://google.serper.dev/search'
+    url = f'{os.getenv("SERPER_BASE_URL", "https://google.serper.dev").rstrip("/")}/search'
     headers = {'X-API-KEY': api_key, 'Content-Type': 'application/json'}
 
     session = await get_session()
